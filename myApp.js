@@ -1,12 +1,43 @@
 require('dotenv').config();
 
+/** 1) Install & Set up mongoose */
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_URI);
 
-let Person;
+// 2 Create a Model
+const personSchema = new mongoose.Schema({
+  name: {
+  type: String,
+  required: true
+  },
+  age: {
+    type: Number
+  },
+  favoriteFoods:
+    [String]
+});
 
-const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+const Person = mongoose.model('Person', personSchema);
+
+// 3 Create and Save a Record of a Model
+var createAndSavePerson = (done) => {
+  var janeFonda = new Person(
+    {name: "Jane Fonda", 
+     age: 84, 
+     favoriteFoods: ["eggs", "fish", "fresh fruit"]
+    });
+
+  janeFonda.save(function(err, data) {
+    if (err) return console.error(err);
+    done(null, data)
+  });
 };
 
+// const createAndSavePerson = (done) => {
+//   done(null /*, data*/);
+// };
+
+// X other stuff
 const createManyPeople = (arrayOfPeople, done) => {
   done(null /*, data*/);
 };
