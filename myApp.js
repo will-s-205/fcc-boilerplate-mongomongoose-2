@@ -7,8 +7,8 @@ mongoose.connect(process.env.MONGO_URI);
 // 2 Create a Model
 const personSchema = new mongoose.Schema({
   name: {
-  type: String,
-  required: true
+    type: String,
+    required: true
   },
   age: {
     type: Number
@@ -21,27 +21,34 @@ const Person = mongoose.model('Person', personSchema);
 
 // 3 Create and Save a Record of a Model
 var createAndSavePerson = (done) => {
-  var janeFonda = new Person(
-    {name: "Jane Fonda", 
-     age: 84, 
-     favoriteFoods: ["eggs", "fish", "fresh fruit"]
+  var Person = new Person(
+    {
+      name: "William Step",
+      age: 34,
+      favoriteFoods: ["meat", "rice", "vegetables"]
     });
 
-  janeFonda.save(function(err, data) {
+  Person.save(function(err, data) {
     if (err) return console.error(err);
     done(null, data)
   });
 };
 
-// const createAndSavePerson = (done) => {
-//   done(null /*, data*/);
-// };
+/** 4) Create many People with `Model.create()` */
+var arrayOfPeople = [
+  { name: "Frankie", age: 74, favoriteFoods: ["Del Taco"] },
+  { name: "Sol", age: 76, favoriteFoods: ["roast chicken"] },
+  { name: "Robert", age: 78, favoriteFoods: ["wine"] }
+];
 
-// X other stuff
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+var createManyPeople = function(arrayOfPeople, done) {
+  Person.create(arrayOfPeople, function(err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
 
+// 5 Use model.find() to Search Your Database
 const findPeopleByName = (personName, done) => {
   done(null /*, data*/);
 };
