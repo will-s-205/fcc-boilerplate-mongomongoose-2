@@ -124,15 +124,22 @@ const removeManyPeople = (done) => {
   {name: nameToRemove}, 
   function(err, removeFromDoc) {
     if(err) return console.log(err);
-    done(null, removeFromDoc)
+    done(null, removeFromDoc);
     }
   );
 };
 
+// 12 Chain Search Query Helpers to Narrow Search Results
 const queryChain = (done) => {
-  const foodToSearch = "burrito";
-
-  done(null /*, data*/);
+  let foodToSearch = "burrito";
+  Person.find({favoriteFoods:foodToSearch})
+    .sort({name:1})
+    .limit(2)
+    .select({age:0})
+    .exec(function(err, data) {
+    if(err) return console.log(err);
+      done(null, data);
+  });
 };
 
 /** **Well Done !!**
