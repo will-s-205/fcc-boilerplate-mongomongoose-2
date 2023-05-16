@@ -2,7 +2,7 @@ require('dotenv').config();
 
 /** 1) Install & Set up mongoose */
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI); // DON'T FORGET URI FROM MONGO DB 
 
 // 2 Create a Model
 const personSchema = new mongoose.Schema({
@@ -21,14 +21,14 @@ const Person = mongoose.model('Person', personSchema);
 
 // 3 Create and Save a Record of a Model
 var createAndSavePerson = (done) => {
-  var Person = new Person(
+  var persona = new Person(
     {
       name: "William Step",
       age: 34,
       favoriteFoods: ["meat", "rice", "vegetables"]
     });
 
-  Person.save(function(err, data) {
+  persona.save(function(err, data) {
     if (err) return console.error(err);
     done(null, data)
   });
