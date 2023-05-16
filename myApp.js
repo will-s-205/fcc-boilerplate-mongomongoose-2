@@ -56,8 +56,12 @@ const findPeopleByName = (personName, done) => {
   });
 };
 
+// 6 Use model.findOne() to Return a Single Matching Document from Your Database
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+    Person.findOne({favoriteFoods: food}, function(err, foundByFood) {
+    if (err) return console.log(err);
+    done(null, foundByFood);
+  });
 };
 
 const findPersonById = (personId, done) => {
